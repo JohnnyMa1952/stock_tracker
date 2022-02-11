@@ -11,6 +11,7 @@ function App() {
 
   const [searchRes, setSearchRes] = useState([]);
   const [searchInput, setSearchInput] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSearchInput = (val) => {
     setSearchInput(val.target.value);
@@ -19,7 +20,9 @@ function App() {
   
   //TODO: function using mock data, should fetch from server
   const getSearchRes = () =>{
+    setIsLoading(true);
     setSearchRes(mockData.products);
+    setIsLoading(false);
   }
 
 
@@ -42,10 +45,13 @@ function App() {
         </button>
       </div>
       <div className='w-100 p-3 container-fluid border'>
-        {
-          searchRes.length == 0 ? 
-          <h1 className='display-2'>No Results</h1>
-          : <ItemList items={searchRes}></ItemList>
+        {isLoading ? 
+          <div className="d-flex justify-content-center">
+            <div className="spinner-border" role="status">
+            </div>
+          </div>
+        : 
+          <ItemList items={searchRes}></ItemList>
         }
       </div>
     </div>
