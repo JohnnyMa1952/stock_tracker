@@ -4,6 +4,7 @@ const axios = require("axios").default;
 
 
 const app = express();
+const router = express.Router();
 
 const createURL = (url, params) => {
   const newURL = new URL(url);
@@ -35,7 +36,7 @@ const searchProduct = async (product) => {
   }
 };
 
-app.get("/search/:product", async (req, res) => {
+router.get("/search/:product", async (req, res) => {
   const product = String(req.params["product"]);
   try {
     const searchRes = await searchProduct(product);
@@ -51,8 +52,10 @@ app.get("/search/:product", async (req, res) => {
   }
 });
 
-app.get("/admin", (req, res) => {
+router.get("/admin", (req, res) => {
   res.send("This is from the admin");
 });
+
+app.use("/api", router);
 
 exports.api = functions.https.onRequest(app);
