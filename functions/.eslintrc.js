@@ -10,7 +10,8 @@ module.exports = {
   ],
   rules: {
     quotes: ["error", "double"],
-    "max-len": ["error", { "ignoreStrings": true }]
+    "max-len": ["error", { "ignoreStrings": true }],
+    "new-cap": "off",
   },
   parserOptions: {
     "ecmaVersion": 8,
