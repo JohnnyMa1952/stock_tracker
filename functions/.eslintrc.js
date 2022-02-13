@@ -9,12 +9,12 @@ module.exports = {
     "google",
   ],
   rules: {
-    quotes: ["error", "double"],
-    "max-len": ["error", { "ignoreStrings": true }],
+    "quotes": ["error", "double"],
+    "max-len": ["error", {"ignoreStrings": true}],
     "new-cap": "off",
   },
   parserOptions: {
     "ecmaVersion": 8,
-    "sourceType": "module"
+    "sourceType": "module",
   },
 };
