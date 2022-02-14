@@ -36,8 +36,12 @@ const searchProduct = async (product) => {
   }
 };
 
-router.get("/search/:product", async (req, res) => {
-  const product = String(req.params["product"]);
+router.get("/search", async (req, res) => {
+  let product = String(req.query.product);
+  if (product === undefined) {
+    product = "";
+  }
+
   try {
     const searchRes = await searchProduct(product);
     const products = searchRes.products;

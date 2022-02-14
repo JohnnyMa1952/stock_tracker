@@ -5,7 +5,7 @@
 
 React app is routed to '/'.
 
-Search API is routed to '/api/search/:productName'
+Search API is routed to '/api/search/?product=PRODUCTNAME'
 
 # Current Progress:
 
@@ -16,7 +16,9 @@ Search API is routed to '/api/search/:productName'
  - Complete endpoint for /availability/:sku
 
 ### React front end
- - Used data from node server and display online inventory status
+ - Fix flex container for ItemList component
+ - Add Error handling and display error for bad search
+ - Display availablity
 
 ### Firebase backend
 
@@ -28,6 +30,7 @@ Search API is routed to '/api/search/:productName'
 
 
 # History (in Reverse chronological order):
+- Use data from node server and display online inventory status
  - Setup a node server to get real data from bestbuy API (CORS prevents fetch() from getting data through react app
  - Setup firebase for React app and node server API
  - Boiler plate node server for API

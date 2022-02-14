@@ -3,9 +3,7 @@ import './App.css';
 import {useEffect, useState} from 'react';
 import ItemList from './components/ItemList';
 
-//mock data before backend is setup
-let mockData = require('./data/searchResData.json');
-
+const apiURL = "https://inventory-tracker-5527a.web.app/api";
 
 function App() {
 
@@ -18,11 +16,30 @@ function App() {
   }
 
   
-  //TODO: function using mock data, should fetch from server
-  const getSearchRes = () =>{
+  const getSearchRes = async () =>{
     setIsLoading(true);
-    setSearchRes(mockData.products);
+
+    const url = new URL(apiURL + "/search");
+    const urlParams = url.searchParams;
+    urlParams.append("product",searchInput);
+
+    try{
+      const response = await fetch(url);
+      const parsedResponse = await response.json();
+      const productsArray = parsedResponse.products;
+      setSearchRes(productsArray);
+    }catch(error){  //TO DO add errors for failing to fetch
+      console.log(error);
+      setSearchRes([]);
+    }
+
     setIsLoading(false);
+  }
+
+  const handleSearchKeypress = (event) => {
+    if(event.key === "Enter"){
+      getSearchRes();
+    }
   }
 
 
@@ -33,12 +50,12 @@ function App() {
 
   return (
     <div className="container-fluid">
-      <h1 className='display-2 text-center'>Bestbuy Inventory Tracker</h1>
+      <h1 className='display-2 text-center'>Bestbuy Online Inventory Tracker</h1>
       <div className='w-100 p-3 input-group'>
         <div className='w-75 form-outline'>
           <input type='search' id='searchProduct' 
           className='form-control col-lg-8' placeholder='Search a product...'
-          onChange={getSearchInput}/>
+          onChange={getSearchInput} onKeyPress={handleSearchKeypress}/>
         </div>
         <button type='button' className='btn btn-primary w-25' onClick={getSearchRes}>
           Search
